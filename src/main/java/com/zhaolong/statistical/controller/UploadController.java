@@ -49,6 +49,12 @@ public class UploadController {
 
     }
 
+    /**
+     * 上传推广数据选择的渠道
+     * @param channel
+     * @param request
+     * @return
+     */
     @GetMapping("/channel")
     @ResponseBody
     public String getChannelType(@RequestParam("channel")String channel, HttpServletRequest request){

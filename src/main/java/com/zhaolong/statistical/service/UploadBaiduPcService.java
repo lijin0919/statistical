@@ -1,6 +1,10 @@
 package com.zhaolong.statistical.service;
 
-import com.zhaolong.statistical.entity.BaiduPcExcel;
+import com.zhaolong.statistical.entity.ExcelInfo;
+import com.zhaolong.statistical.entity.KeywordsCode;
+import com.zhaolong.statistical.entity.KeywordsRecord;
+import com.zhaolong.statistical.repository.KeyWordsRecordRepository;
+import com.zhaolong.statistical.repository.KeyWordsRepository;
 import com.zhaolong.statistical.util.ExcelImportUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -10,7 +14,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -30,6 +33,12 @@ public class UploadBaiduPcService {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    private KeyWordsRepository keyWordsRepository;
+
+    @Autowired
+    private KeyWordsRecordRepository keyWordsRecordRepository;
     /**
      * 上传excel文件到临时目录后并开始解析
      * @param fileName
@@ -88,6 +97,7 @@ public class UploadBaiduPcService {
                 readExcelValue(wb,tempFile);
                 break;
             case "百度移动":
+
                 break;
             case "360PC":
                 break;
@@ -100,6 +110,7 @@ public class UploadBaiduPcService {
             case "神马":
                 break;
             case "商务通":
+                readBusinessExcelValue(wb,tempFile);
                 break;
         }
     }
@@ -124,8 +135,8 @@ public class UploadBaiduPcService {
         if(totalRows>=2 && sheet.getRow(8) != null){
             totalCells=sheet.getRow(8).getPhysicalNumberOfCells();
         }
-        List<BaiduPcExcel> baiduPcExcelList=new ArrayList<>();
-        BaiduPcExcel baiduPcExcel;
+        List<ExcelInfo> baiduPcExcelList=new ArrayList<>();
+        ExcelInfo baiduPcExcel;
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DecimalFormat df = new DecimalFormat("######0"); //四色五入转换成整数
@@ -134,7 +145,7 @@ public class UploadBaiduPcService {
 
             Row row = sheet.getRow(r);
 
-            baiduPcExcel = new BaiduPcExcel();
+            baiduPcExcel = new ExcelInfo();
 
             //循环Excel的列
             for(int c = 0; c <totalCells; c++){
@@ -145,7 +156,7 @@ public class UploadBaiduPcService {
                             Date d = cell.getDateCellValue();
                             baiduPcExcel.setDate(d);
                             break;
-                        case 1:
+                        case 1://关键词
                             String key = cell.getStringCellValue();
                             baiduPcExcel.setKeyWords(key);
                             break;
@@ -168,6 +179,9 @@ public class UploadBaiduPcService {
             }
 
 
+
+
+            insertOrUpdata(baiduPcExcel);
             baiduPcExcelList.add(baiduPcExcel);
 
         }
@@ -178,5 +192,104 @@ public class UploadBaiduPcService {
 ////        }
         //全部验证通过才导入到数据库
         System.out.println(baiduPcExcelList);
+    }
+
+
+    private void insertOrUpdata(ExcelInfo excelInfo){
+        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngine(excelInfo.getKeyWords(),"百度PC");
+        if(keywordsCodeList.size()==1){
+            String channel = (String) session.getAttribute("channel");
+            List<KeywordsRecord> keywordsRecordList =
+                    keyWordsRecordRepository.findByKeywordsCodeAndSearchEngine(keywordsCodeList.get(0),channel);
+
+            if(keywordsRecordList.size()==0){
+                KeywordsRecord keywordsRecord = new KeywordsRecord();
+                keywordsRecord.setKeywordsCode(keywordsCodeList.get(0));
+                keywordsRecord.setRecordDate(excelInfo.getDate());
+                keywordsRecord.setClickCount(excelInfo.getClick());
+                keywordsRecord.setSearchEngine(channel);
+                keywordsRecord.setShowTimes(excelInfo.getShow());
+                keywordsRecord.setSpendMoney(excelInfo.getSpend());
+                keyWordsRecordRepository.save(keywordsRecord);
+            }
+
+            //关键词记录表里找出多个记录，但是日期不同
+            if(keywordsRecordList.size()>0){
+
+                for (KeywordsRecord keywordsRecord:keywordsRecordList) {
+
+                    //找出时间相同的
+                    if(keywordsRecord.getRecordDate().getYear()==excelInfo.getDate().getYear()){
+                        if(keywordsRecord.getRecordDate().getMonth()==excelInfo.getDate().getMonth()){
+                            if(keywordsRecord.getRecordDate().getDay()==excelInfo.getDate().getDay()){
+
+                                keywordsRecord.setClickCount(keywordsRecord.getClickCount()+excelInfo.getClick());
+                                keywordsRecord.setShowTimes(keywordsRecord.getShowTimes()+excelInfo.getShow());
+                                keywordsRecord.setSpendMoney(keywordsRecord.getSpendMoney()+excelInfo.getSpend());
+                                keyWordsRecordRepository.save(keywordsRecord);
+                            }
+                        }
+                    }
+                }
+
+
+            }
+
+
+        }
+    }
+
+
+    /**
+     * 读取商务通数据
+     * @param wb
+     * @param tempFile
+     * @throws ParseException
+     */
+    private void readBusinessExcelValue(Workbook wb,File tempFile) throws ParseException {
+
+        //错误信息接收器
+        String errorMsg = "";
+        //得到第一个shell
+        Sheet sheet=wb.getSheetAt(0);
+        //得到Excel的行数
+        int totalRows=sheet.getPhysicalNumberOfRows();
+        //总列数
+        int totalCells = 0;
+        //得到Excel的列数(前提是有行数)，从第二行算起
+        if(totalRows>=2 && sheet.getRow(3) != null){
+            totalCells=sheet.getRow(3).getPhysicalNumberOfCells();
+        }
+        List<ExcelInfo> baiduPcExcelList=new ArrayList<>();
+        ExcelInfo baiduPcExcel;
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DecimalFormat df = new DecimalFormat("######0"); //四色五入转换成整数
+        //循环Excel行数,从第二行开始。标题不入库
+        for(int r=4;r<totalRows;r++){
+
+            Row row = sheet.getRow(r);
+
+            baiduPcExcel = new ExcelInfo();
+
+            //循环Excel的列
+            Cell cell = row.getCell(12);
+            String info = cell.getStringCellValue();
+            }
+
+
+
+
+//            insertOrUpdata(baiduPcExcel);
+//            baiduPcExcelList.add(baiduPcExcel);
+
+
+
+        //删除上传的临时文件
+//        if(tempFile.exists()){
+////            tempFile.delete();
+////        }
+        //全部验证通过才导入到数据库
+
     }
 }

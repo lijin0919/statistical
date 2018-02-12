@@ -7,16 +7,9 @@ function chooseChannel(data) {
         type:"GET",
         data:{channel:data},
         success:function (obj) {
-            alert(obj);
+
+            alert(obj)
         }
     });
 }
 
-$(document).ready(function () {
-
-
-
-
-
-
-});

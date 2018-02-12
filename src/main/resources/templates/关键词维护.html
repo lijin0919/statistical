@@ -1,23 +1,26 @@
 <html style="min-height: 922px;" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>上传推广数据</title>
+    <title>Director | Simple Tables</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <meta name="description" content="Developed By M Abdur Rokib Promy"/>
     <meta name="keywords" content="Admin, Bootstrap 3, Template, Theme, Responsive"/>
     <!-- bootstrap 3.0.2 -->
-    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <!-- font Awesome -->
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <!-- Ionicons -->
     <link href="css/ionicons.min.css" rel="stylesheet" type="text/css"/>
-
+    <!-- google font -->
+    <!-- Theme style -->
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <script src="js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<script src="js/choose-channel.js"></script>
+    <!--[if lt IE 9]>
+
+    <![endif]-->
 </head>
 <body class="skin-black      pace-done" style="min-height: 922px;">
 <div class="pace  pace-inactive">
@@ -78,7 +81,9 @@
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
-
+                <div class="pull-left image">
+                    <img src="img/avatar3.png" class="img-circle" alt="User Image"/>
+                </div>
                 <div class="pull-left info">
                     <p>Hello, Jane</p>
 
@@ -101,7 +106,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="business">
+                    <a href="上传商务通数据.html">
                         <i class="fa fa-gavel"></i> <span>上传商务通数据</span>
                     </a>
                 </li>
@@ -119,7 +124,7 @@
                 </li>
 
                 <li>
-                    <a href="keyWords">
+                    <a href="#">
                         <i class="fa fa-envelope"></i> <span>关键词维护</span>
                     </a>
                 </li>
@@ -153,62 +158,111 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel">
-                        <header class="panel-heading">推广数据上传</header>
-                        <!-- <div class="box-header"> -->
-                        <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
 
-                        <!-- </div> -->
                         <div class="panel-body table-responsive">
 
 
 
-                            <div style="margin-bottom: 10px">
-                                <div class="btn-group">
-                                    <button id="channelBtn" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        请选择渠道
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">百度PC</a></li>
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">百度移动</a></li>
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">360PC</a></li>
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">360移动</a></li>
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">神马</a></li>
-                                    </ul>
-                                </div>
 
+                            <div class="panel-body">
+                                <form action="savekeyword" class="form-inline" role="form" method="post">
+                                    <div class="form-group">
+                                        <label class="sr-only" for="exampleInputEmail2">关键词</label>
+                                        <input name="keywords" type="text" class="form-control" id="exampleInputEmail2" placeholder="关键词"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="exampleInputPassword2">关键词代码</label>
+                                        <input name="keycode" type="text" class="form-control" id="exampleInputPassword2" placeholder="关键词代码"/>
+                                    </div>
+                                   <div class="form-group">
+                                       <select name="keychannel" class="form-control">
+                                           <option>百度PC</option>
+                                           <option>百度移动</option>
+                                           <option>360PC</option>
+                                           <option>360移动</option>
+                                           <option>搜狗PC</option>
+                                           <option>搜狗移动</option>
+                                           <option>神马</option>
+                                       </select>
+                                   </div>
+                                    <button type="submit" class="btn btn-success">Sign in</button>
+                                </form>
 
                             </div>
 
+<!--关键词列表-->
+
+                            <section class="panel tasks-widget">
+                                <header class="panel-heading">
+                                    关键词列表
+                                </header>
+                                <div class="panel-body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>关键词</th>
+                                            <th>关键词代码</th>
+                                            <!-- <th>Client</th> -->
+                                            <th>搜索引擎</th>
+                                            <!-- <th>Price</th> -->
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="key:${list}">
+                                            <td th:text="${key.getCodeId()}"></td>
+                                            <td th:text="${key.getKeyWords()}"></td>
+                                            <td th:text="${key.getCode()}"></td>
+                                            <!-- <td>Steve</td> -->
+
+                                            <!-- <td>$1500</td> -->
+                                            <!--<span class="label label-danger">in progress</span>-->
+                                            <td th:text="${key.getSearchEngine()}"></td>
+                                            <td>
+                                                <div class="hidden-phone">
+                                                    <!--<button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>-->
+                                                    <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
+                                                    <button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
 
 
+                                        </tbody>
+                                    </table>
 
 
-
-
-
-
-                            <form role="form" action="#" th:action="@{batchImport}" enctype="multipart/form-data" method="post">
-
-
-                                <div class="form-group">
-
-                                    <input type="file" id="exampleInputFile" name="filename"/>
-                                    <p class="help-block">请确保上传文件的准确性</p>
                                 </div>
+                            </section>
 
-                                <button type="submit" class="btn btn-info">Submit</button>
-                            </form>
+
+
 
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->
                 </div>
-            </div>
-        </section><!-- /.content -->
 
+            </div>
+
+        </section><!-- /.content -->
+        <div class="footer-main">
+            <div>
+                <ul class="pagination pagination-lg">
+                    <li><a href="#">«</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+        </div>
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
 
 
-<!-- jQuery 2.0.2 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script></body></html>
+
+</body>
+</html>

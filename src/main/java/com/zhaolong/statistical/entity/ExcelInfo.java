@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class BaiduPcExcel {
+public class ExcelInfo {
 
     private Date date;
     private String keyWords;
