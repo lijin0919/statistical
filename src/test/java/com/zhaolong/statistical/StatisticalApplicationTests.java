@@ -5,6 +5,7 @@ import com.zhaolong.statistical.entity.KeywordsRecord;
 import com.zhaolong.statistical.repository.KeyWordsRecordRepository;
 import com.zhaolong.statistical.repository.KeyWordsRepository;
 import com.zhaolong.statistical.service.DateListService;
+import com.zhaolong.statistical.service.ExportService;
 import com.zhaolong.statistical.service.KeyWordsCodeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,14 +67,19 @@ public class StatisticalApplicationTests {
 	@Test
 	public void keyTest() throws ParseException {
 
-
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date startDate = simpleDateFormat.parse("2018-02-09 00:00:00");
-		Date endDate = simpleDateFormat.parse("2018-02-15 00:00:00");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = simpleDateFormat.parse("2018-02-09");
+		Date endDate = simpleDateFormat.parse("2018-02-15");
 		Sort sort = new Sort(Sort.Direction.DESC, "recordDate");
-		Pageable pageable = new PageRequest(1, 10, sort);
+		Pageable pageable = new PageRequest(0, 1, sort);
 		List<KeywordsRecord> list = dateListService.getKeyWords(startDate,endDate,pageable);
 		System.out.println(list);
 	}
 
+	@Autowired
+	private ExportService exportService;
+	@Test
+	public void export() throws IOException {
+		exportService.exportExcl(new Date(),new Date());
+	}
 }

@@ -102,12 +102,12 @@
             </form>
             <ul class="sidebar-menu">
                 <li>
-                    <a href="上传推广数据.html">
+                    <a href="index">
                         <i class="fa fa-dashboard"></i> <span>上传推广数据</span>
                     </a>
                 </li>
                 <li>
-                    <a href="上传商务通数据.html">
+                    <a href="business">
                         <i class="fa fa-gavel"></i> <span>上传商务通数据</span>
                     </a>
                 </li>
@@ -119,13 +119,13 @@
                 </li>
 
                 <li>
-                    <a href="数据汇总.html">
+                    <a href="dataList">
                         <i class="fa fa-glass"></i> <span>数据列表</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="keyWords">
                         <i class="fa fa-envelope"></i> <span>关键词维护</span>
                     </a>
                 </li>
@@ -171,18 +171,19 @@
                             <div class="box-tools m-b-15">
 
                                 <div class="input-group" style="margin-bottom: 50px">
-                                    <button type="submit" class="btn btn-success">数据导出</button>
+                                    <a href="export" type="submit" class="btn btn-success">数据导出</a>
                                 </div>
 
 
                                 <div>
-                                    <form action="#" class="form-horizontal"  role="form" th:action="@{showData}" enctype="multipart/form-data" method="post">
+                                    <form action="#" class="form-horizontal" role="form" th:action="@{showData}"
+                                          enctype="multipart/form-data" method="post">
                                         <fieldset>
 
                                             <legend></legend>
                                             <div class="form-group">
                                                 <label for="start">起始日期</label>
-                                                <input  id="start" name="start-date" size="16" type="date" value=""/>
+                                                <input id="start" name="start-date" size="16" type="date" value=""/>
                                             </div>
 
                                             <div class="form-group">
@@ -190,7 +191,9 @@
                                                 <input id="end" name="end-date" size="16" type="date" value=""/>
                                             </div>
                                             <div class="input-group">
-                                                <button id="data-list-export-btn" type="submit" class="btn btn-primary">查询</button>
+                                                <button id="data-list-export-btn" type="submit" class="btn btn-primary">
+                                                    查询
+                                                </button>
                                             </div>
                                         </fieldset>
                                     </form>
@@ -201,9 +204,9 @@
                                 <script type="text/javascript">
 
                                     $('.form_date').datetimepicker({
-                                        language:  'zh-CN',
+                                        language: 'zh-CN',
                                         weekStart: 1,
-                                        todayBtn:  1,
+                                        todayBtn: 1,
                                         autoclose: 1,
                                         todayHighlight: 1,
                                         startView: 2,
@@ -212,7 +215,6 @@
                                     });
 
                                 </script>
-
 
 
                             </div>
@@ -231,45 +233,22 @@
                                     <th>上门</th>
                                     <th>注册</th>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>java</td>
-                                    <td>2018-02-10</td>
-                                    <td>百度</td>
-                                    <td>23</td>
-                                    <td>11</td>
-                                    <td>1</td>
-                                    <td><span class="label label-danger">缺失</span></td>
-                                    <td><span class="label label-danger">缺失</span></td>
-                                    <td><span class="label label-danger">缺失</span></td>
-                                    <td><span class="label label-danger">缺失</span></td>
+                                <tr th:each="key:${list}">
+                                    <td th:text="${key.getRecordId()}"></td>
+                                    <td th:text="${key.getKeywordsCode().getKeyWords()}"></td>
+                                    <!--<td th:text="${key.getRecordDate().getYear()+'-'+(key.getRecordDate().getMonth()+1)+'-'+key.getRecordDate().getDate()}"></td>-->
+                                    <td th:text="${key.getRecordDate()}"></td>
+                                    <td th:text="${key.getSearchEngine()}"></td>
+                                    <td th:text="${key.getShowTimes()}"></td>
+                                    <td th:text="${key.getClickCount()}"></td>
+                                    <td th:text="${key.getSpendMoney()}"></td>
+                                    <td><span th:text="${key.getDialogueCount()==null?'缺失':key.getDialogueCount()}"  th:class="${key.getDialogueCount()==null?'label label-danger':''}">缺失</span></td>
+
+                                    <td><span th:text="${key.getPhoneCount()==null?'缺失':key.getPhoneCount()}"  th:class="${key.getPhoneCount()==null?'label label-danger':''}">缺失</span></td>
+                                    <td><span th:text="${key.getVisitCount()==null?'缺失':key.getVisitCount()}"  th:class="${key.getVisitCount()==null?'label label-danger':''}">缺失</span></td>
+                                    <td><span th:text="${key.getRegisteredCount()==null?'缺失':key.getRegisteredCount()}"  th:class="${key.getVisitCount()==null?'label label-danger':''}">缺失</span></td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>兆隆</td>
-                                    <td>2018-02-10</td>
-                                    <td>百度</td>
-                                    <td>23</td>
-                                    <td>11</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td><span class="label label-danger">缺失</span></td>
-                                    <td><span class="label label-danger">缺失</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>it培训</td>
-                                    <td>2018-02-10</td>
-                                    <td>百度</td>
-                                    <td>23</td>
-                                    <td>11</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div><!-- /.box-body -->

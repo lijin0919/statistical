@@ -34,4 +34,8 @@ public class IndexController {
         return "数据汇总";
     }
 
+    @GetMapping("/export")
+    public String export(){
+        return "导出";
+    }
 }

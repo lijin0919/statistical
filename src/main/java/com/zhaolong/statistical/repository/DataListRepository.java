@@ -6,8 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
+import java.util.List;
 
 public interface DataListRepository extends JpaRepository<KeywordsRecord,Integer>{
 
     Page<KeywordsRecord> findByRecordDateBetween(Date start, Date end, Pageable pageable);
+
+    List<KeywordsRecord> findByRecordDateBetween(Date start, Date end);
 }

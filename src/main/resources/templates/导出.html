@@ -13,15 +13,16 @@
     <!-- Ionicons -->
     <link href="css/ionicons.min.css" rel="stylesheet" type="text/css"/>
     <!-- google font -->
+    <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css"/>
     <!-- Theme style -->
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
     <script src="js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="css/bootstrap-datetimepicker.min.css"></script>
 
-    <![endif]-->
 </head>
 <body class="skin-black      pace-done" style="min-height: 922px;">
 <div class="pace  pace-inactive">
@@ -82,9 +83,7 @@
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="img/avatar3.png" class="img-circle" alt="User Image"/>
-                </div>
+
                 <div class="pull-left info">
                     <p>Hello, Jane</p>
 
@@ -96,7 +95,8 @@
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search..."/>
                     <span class="input-group-btn">
-                                <button type="submit" name="seach" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                <button type="submit" name="seach" id="search-btn" class="btn btn-flat"><i
+                                        class="fa fa-search"></i></button>
                             </span>
                 </div>
             </form>
@@ -159,42 +159,75 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel">
-                        <header class="panel-heading">商务通数据上传</header>
+                        <header class="panel-heading">
+                            关键词数据汇总
+
+                        </header>
                         <!-- <div class="box-header"> -->
                         <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
 
                         <!-- </div> -->
                         <div class="panel-body table-responsive">
+                            <div class="box-tools m-b-15">
 
 
+                                <div>
+                                    <form action="#" class="form-horizontal" role="form" th:action="@{showData}"
+                                          enctype="multipart/form-data" method="post">
+                                        <fieldset>
 
+                                            <legend></legend>
+                                            <div class="form-group">
+                                                <label for="start">起始日期</label>
+                                                <input id="start" name="start-date" size="16" type="date" value=""/>
+                                            </div>
 
+                                            <div class="form-group">
+                                                <label for="end">结束日期</label>
+                                                <input id="end" name="end-date" size="16" type="date" value=""/>
+                                            </div>
+                                            <div class="input-group">
+                                                <button id="data-list-export-btn" type="submit" class="btn btn-primary">
+                                                    导出
+                                                </button>
+                                                <a id="send" class="btn btn-primary">
+                                                    导出并发送
+                                                </a>
+                                            </div>
 
+                                        </fieldset>
+                                    </form>
 
-
-
-
-                            <form role="form" action="#" th:action="@{uploadBusiness}" enctype="multipart/form-data" method="post">
-
-
-                                <div class="form-group">
-
-                                    <input type="file" id="exampleInputFile" name="filename"/>
-                                    <p class="help-block">请确保上传文件的准确性</p>
                                 </div>
 
-                                <button type="submit" class="btn btn-info">Submit</button>
-                            </form>
+
+
+
+                            </div>
 
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->
                 </div>
             </div>
         </section><!-- /.content -->
-
+        <div class="footer-main">
+            <div>
+                <ul class="pagination pagination-lg">
+                    <li><a href="#">«</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+        </div>
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
 
-
+<script src="js/data-list.js"></script>
 <!-- jQuery 2.0.2 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script></body></html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+</body>
+</html>

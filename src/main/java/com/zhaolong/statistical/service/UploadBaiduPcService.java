@@ -158,6 +158,7 @@ public class UploadBaiduPcService {
                             break;
                         case 1://关键词
                             String key = cell.getStringCellValue();
+
                             baiduPcExcel.setKeyWords(key);
                             break;
                         case 4://展现
