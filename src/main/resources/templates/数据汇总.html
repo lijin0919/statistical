@@ -1,0 +1,300 @@
+<html style="min-height: 922px;"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Director | Simple Tables</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <meta name="description" content="Developed By M Abdur Rokib Promy"/>
+    <meta name="keywords" content="Admin, Bootstrap 3, Template, Theme, Responsive"/>
+    <!-- bootstrap 3.0.2 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- font Awesome -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <!-- Ionicons -->
+    <link href="css/ionicons.min.css" rel="stylesheet" type="text/css"/>
+    <!-- google font -->
+    <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css"/>
+    <!-- Theme style -->
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="css/bootstrap-datetimepicker.min.css"></script>
+
+</head>
+<body class="skin-black      pace-done" style="min-height: 922px;">
+<div class="pace  pace-inactive">
+    <div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">
+        <div class="pace-progress-inner"></div>
+    </div>
+    <div class="pace-activity"></div>
+</div>
+<div class="pace  pace-inactive">
+    <div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">
+        <div class="pace-progress-inner"></div>
+    </div>
+    <div class="pace-activity"></div>
+</div>
+<div class="pace  pace-inactive">
+    <div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">
+        <div class="pace-progress-inner"></div>
+    </div>
+    <div class="pace-activity"></div>
+</div>
+<!-- header logo: style can be found in header.less -->
+<header class="header">
+    <a href="index.html" class="logo">
+        <!-- Add the class icon to your logo image or logo icon to add the margining -->兆隆教育</a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+
+
+                <!-- Tasks: style can be found in dropdown.less -->
+
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-user"></i>
+                        <span>Jane Doe <i class="caret"></i></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+
+
+                        <li>
+                            <a href="#"><i class="fa fa-ban fa-fw pull-right"></i> 退出</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="wrapper row-offcanvas row-offcanvas-left" style="min-height: 922px;">
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="left-side sidebar-offcanvas" style="min-height: 922px;">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+
+                <div class="pull-left info">
+                    <p>Hello, Jane</p>
+
+
+                </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                    <span class="input-group-btn">
+                                <button type="submit" name="seach" id="search-btn" class="btn btn-flat"><i
+                                        class="fa fa-search"></i></button>
+                            </span>
+                </div>
+            </form>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="上传推广数据.html">
+                        <i class="fa fa-dashboard"></i> <span>上传推广数据</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="上传商务通数据.html">
+                        <i class="fa fa-gavel"></i> <span>上传商务通数据</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="上传客服数据.html">
+                        <i class="fa fa-globe"></i> <span>上传客服数据</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="数据汇总.html">
+                        <i class="fa fa-glass"></i> <span>数据列表</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa fa-envelope"></i> <span>关键词维护</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-tasks"></i> <span>上传日志</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <aside class="right-side">
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel">
+
+                        <!-- /.panel-body -->
+
+                    </div><!-- /.panel -->
+
+                    <!-- /.panel -->
+                </div><!-- /.col -->
+                <!-- /.col -->
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel">
+                        <header class="panel-heading">
+                            关键词数据汇总
+
+                        </header>
+                        <!-- <div class="box-header"> -->
+                        <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
+
+                        <!-- </div> -->
+                        <div class="panel-body table-responsive">
+                            <div class="box-tools m-b-15">
+
+                                <div class="input-group" style="margin-bottom: 50px">
+                                    <button type="submit" class="btn btn-success">数据导出</button>
+                                </div>
+
+
+                                <div>
+                                    <form action="#" class="form-horizontal"  role="form" th:action="@{showData}" enctype="multipart/form-data" method="post">
+                                        <fieldset>
+
+                                            <legend></legend>
+                                            <div class="form-group">
+                                                <label for="start">起始日期</label>
+                                                <input  id="start" name="start-date" size="16" type="date" value=""/>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="end">结束日期</label>
+                                                <input id="end" name="end-date" size="16" type="date" value=""/>
+                                            </div>
+                                            <div class="input-group">
+                                                <button id="data-list-export-btn" type="submit" class="btn btn-primary">查询</button>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+
+                                </div>
+
+
+                                <script type="text/javascript">
+
+                                    $('.form_date').datetimepicker({
+                                        language:  'zh-CN',
+                                        weekStart: 1,
+                                        todayBtn:  1,
+                                        autoclose: 1,
+                                        todayHighlight: 1,
+                                        startView: 2,
+                                        minView: 2,
+                                        forceParse: 0
+                                    });
+
+                                </script>
+
+
+
+                            </div>
+                            <table class="table table-hover">
+                                <tbody>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>关键词</th>
+                                    <th>日期</th>
+                                    <th>搜索引擎</th>
+                                    <th>展现</th>
+                                    <th>点击</th>
+                                    <th>消费</th>
+                                    <th>对话数</th>
+                                    <th>电话数</th>
+                                    <th>上门</th>
+                                    <th>注册</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>java</td>
+                                    <td>2018-02-10</td>
+                                    <td>百度</td>
+                                    <td>23</td>
+                                    <td>11</td>
+                                    <td>1</td>
+                                    <td><span class="label label-danger">缺失</span></td>
+                                    <td><span class="label label-danger">缺失</span></td>
+                                    <td><span class="label label-danger">缺失</span></td>
+                                    <td><span class="label label-danger">缺失</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>兆隆</td>
+                                    <td>2018-02-10</td>
+                                    <td>百度</td>
+                                    <td>23</td>
+                                    <td>11</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>1</td>
+                                    <td><span class="label label-danger">缺失</span></td>
+                                    <td><span class="label label-danger">缺失</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>it培训</td>
+                                    <td>2018-02-10</td>
+                                    <td>百度</td>
+                                    <td>23</td>
+                                    <td>11</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+            </div>
+        </section><!-- /.content -->
+        <div class="footer-main">
+            <div>
+                <ul class="pagination pagination-lg">
+                    <li><a href="#">«</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+        </div>
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+
+<script src="js/data-list.js"></script>
+<!-- jQuery 2.0.2 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+</body>
+</html>

@@ -29,4 +29,9 @@ public class IndexController {
         return "上传商务通数据";
     }
 
+    @GetMapping("/dataList")
+    public String dataList(){
+        return "数据汇总";
+    }
+
 }
