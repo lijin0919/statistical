@@ -197,7 +197,7 @@ public class UploadBaiduPcService {
 
 
     private void insertOrUpdata(ExcelInfo excelInfo){
-        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngine(excelInfo.getKeyWords(),"百度PC");
+        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngineAndState(excelInfo.getKeyWords(),"百度PC",1);
         if(keywordsCodeList.size()==1){
             String channel = (String) session.getAttribute("channel");
             List<KeywordsRecord> keywordsRecordList =
@@ -220,16 +220,22 @@ public class UploadBaiduPcService {
                 for (KeywordsRecord keywordsRecord:keywordsRecordList) {
 
                     //找出时间相同的
-                    if(keywordsRecord.getRecordDate().getYear()==excelInfo.getDate().getYear()){
-                        if(keywordsRecord.getRecordDate().getMonth()==excelInfo.getDate().getMonth()){
-                            if(keywordsRecord.getRecordDate().getDay()==excelInfo.getDate().getDay()){
-
-                                keywordsRecord.setClickCount(keywordsRecord.getClickCount()+excelInfo.getClick());
-                                keywordsRecord.setShowTimes(keywordsRecord.getShowTimes()+excelInfo.getShow());
-                                keywordsRecord.setSpendMoney(keywordsRecord.getSpendMoney()+excelInfo.getSpend());
-                                keyWordsRecordRepository.save(keywordsRecord);
-                            }
-                        }
+                    if((keywordsRecord.getRecordDate().getYear()==excelInfo.getDate().getYear())
+                            &&(keywordsRecord.getRecordDate().getMonth()==excelInfo.getDate().getMonth())
+                            &&(keywordsRecord.getRecordDate().getDay()==excelInfo.getDate().getDay())){
+                        keywordsRecord.setClickCount(keywordsRecord.getClickCount()+excelInfo.getClick());
+                        keywordsRecord.setShowTimes(keywordsRecord.getShowTimes()+excelInfo.getShow());
+                        keywordsRecord.setSpendMoney(keywordsRecord.getSpendMoney()+excelInfo.getSpend());
+                        keyWordsRecordRepository.save(keywordsRecord);
+                        }else {
+                        KeywordsRecord keywordsRecord1 = new KeywordsRecord();
+                        keywordsRecord1.setKeywordsCode(keywordsCodeList.get(0));
+                        keywordsRecord1.setRecordDate(excelInfo.getDate());
+                        keywordsRecord1.setClickCount(excelInfo.getClick());
+                        keywordsRecord1.setSearchEngine(channel);
+                        keywordsRecord1.setShowTimes(excelInfo.getShow());
+                        keywordsRecord1.setSpendMoney(excelInfo.getSpend());
+                        keyWordsRecordRepository.save(keywordsRecord1);
                     }
                 }
 

@@ -3,8 +3,11 @@ package com.zhaolong.statistical.service;
 import com.zhaolong.statistical.entity.KeywordsCode;
 import com.zhaolong.statistical.repository.KeyWordsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,8 +31,19 @@ public class KeyWordsCodeService {
         keyWordsRepository.save(keywordsCode);
     }
 
-    public List<KeywordsCode> getKeywordsCodeList(){
-        List<KeywordsCode> list = keyWordsRepository.findAll();
-        return list;
+    public List<KeywordsCode> getKeywordsCodeList(Pageable pageable){
+//        Page<KeywordsCode> list = keyWordsRepository.findAll(pageable);
+        Page<KeywordsCode> list = keyWordsRepository.findByState(1,pageable);
+        List<KeywordsCode> keywordsCodes = new ArrayList<>();
+        for (KeywordsCode key:list) {
+            keywordsCodes.add(key);
+        }
+        return keywordsCodes;
+    }
+
+    public void deleteKey(Integer id){
+        KeywordsCode keywordsCode = keyWordsRepository.findOne(id);
+        keywordsCode.setState(0);
+        keyWordsRepository.save(keywordsCode);
     }
 }

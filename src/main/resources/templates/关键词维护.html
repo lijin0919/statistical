@@ -16,6 +16,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <script src="js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/keyWords.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -60,13 +61,13 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-user"></i>
-                        <span>Jane Doe <i class="caret"></i></span>
+                        <span th:text="${session.user.getUsername()}"> <i class="caret"></i></span>
                     </a>
                     <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
 
 
                         <li>
-                            <a href="#"><i class="fa fa-ban fa-fw pull-right"></i> 退出</a>
+                            <a href="logout"><i class="fa fa-ban fa-fw pull-right"></i> 退出</a>
                         </li>
                     </ul>
                 </li>
@@ -81,24 +82,15 @@
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="img/avatar3.png" class="img-circle" alt="User Image"/>
-                </div>
+
                 <div class="pull-left info">
-                    <p>Hello, Jane</p>
+                    <p th:text="${session.user.username}"></p>
 
 
                 </div>
             </div>
             <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                    <span class="input-group-btn">
-                                <button type="submit" name="seach" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                </div>
-            </form>
+
             <ul class="sidebar-menu">
                 <li>
                     <a href="index">
@@ -112,7 +104,7 @@
                 </li>
 
                 <li>
-                    <a href="上传客服数据.html">
+                    <a href="customer">
                         <i class="fa fa-globe"></i> <span>上传客服数据</span>
                     </a>
                 </li>
@@ -222,8 +214,8 @@
                                             <td>
                                                 <div class="hidden-phone">
                                                     <!--<button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>-->
-                                                    <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
-                                                    <button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                                    <button onclick="" th:value="${key.getCodeId()}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
+                                                    <button onclick="deleteKey(this)" th:value="${key.getCodeId()}" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -248,15 +240,12 @@
         </section><!-- /.content -->
         <div class="footer-main">
             <div>
-                <ul class="pagination pagination-lg">
-                    <li><a href="#">«</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">»</a></li>
-                </ul>
+                <nav>
+                    <ul class="pager">
+                        <li><a th:href="@{keyWords(page=${keypage}-1)}">Previous</a></li>
+                        <li><a th:href="@{keyWords(page=${keypage}+1)}">Next</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </aside><!-- /.right-side -->

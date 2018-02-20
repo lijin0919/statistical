@@ -1,9 +1,10 @@
 package com.zhaolong.statistical;
 
+import com.zhaolong.statistical.entity.ExportInfo;
 import com.zhaolong.statistical.entity.KeywordsCode;
 import com.zhaolong.statistical.entity.KeywordsRecord;
-import com.zhaolong.statistical.repository.KeyWordsRecordRepository;
-import com.zhaolong.statistical.repository.KeyWordsRepository;
+import com.zhaolong.statistical.entity.UserInfo;
+import com.zhaolong.statistical.repository.*;
 import com.zhaolong.statistical.service.DateListService;
 import com.zhaolong.statistical.service.ExportService;
 import com.zhaolong.statistical.service.KeyWordsCodeService;
@@ -24,7 +25,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class StatisticalApplicationTests {
+public class  StatisticalApplicationTests {
 
 	@Autowired
 	private KeyWordsCodeService keyWordsCodeService;
@@ -64,6 +65,12 @@ public class StatisticalApplicationTests {
 	@Autowired
 	private DateListService dateListService;
 
+	@Autowired
+	private ExportRepository exportRepository;
+
+	@Autowired
+	private DataListRepository dataListRepository;
+
 	@Test
 	public void keyTest() throws ParseException {
 
@@ -72,7 +79,7 @@ public class StatisticalApplicationTests {
 		Date endDate = simpleDateFormat.parse("2018-02-15");
 		Sort sort = new Sort(Sort.Direction.DESC, "recordDate");
 		Pageable pageable = new PageRequest(0, 1, sort);
-		List<KeywordsRecord> list = dateListService.getKeyWords(startDate,endDate,pageable);
+		List<ExportInfo> list = exportRepository.getAll(startDate,endDate);
 		System.out.println(list);
 	}
 
@@ -81,5 +88,15 @@ public class StatisticalApplicationTests {
 	@Test
 	public void export() throws IOException {
 		exportService.exportExcl(new Date(),new Date());
+	}
+
+	@Autowired
+	private UserInfoRepository userInfoRepository;
+	@Test
+	public void userInfo(){
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUsername("admin");
+		userInfo.setPassword("admin");
+//		userInfoRepository.save(userInfo);
 	}
 }

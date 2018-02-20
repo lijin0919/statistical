@@ -140,7 +140,7 @@ public class SmPcService {
     }
 
     private void insertOrUpdata(ExcelInfo excelInfo) {
-        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngine(excelInfo.getKeyWords(), "神马");
+        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngineAndState(excelInfo.getKeyWords(), "神马",1);
         if (keywordsCodeList.size() == 1) {
 
             List<KeywordsRecord> keywordsRecordList =

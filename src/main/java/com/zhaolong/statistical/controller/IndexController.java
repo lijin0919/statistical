@@ -19,6 +19,9 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index() {
+        if(session.getAttribute("user")==null){
+            return "redirect:login";
+        }
         return "上传推广数据";
     }
 
@@ -26,16 +29,39 @@ public class IndexController {
     @GetMapping("/business")
     public String businessInfo() {
 
+        if(session.getAttribute("user")==null){
+            return "redirect:login";
+        }
         return "上传商务通数据";
     }
 
     @GetMapping("/dataList")
     public String dataList(){
+        if(session.getAttribute("user")==null){
+            return "redirect:login";
+        }
         return "数据汇总";
     }
 
     @GetMapping("/export")
     public String export(){
+        if(session.getAttribute("user")==null){
+            return "redirect:login";
+        }
         return "导出";
+    }
+
+    @GetMapping("/customer")
+    public String uploadService(){
+
+        if(session.getAttribute("user")==null){
+            return "redirect:login";
+        }
+        return "上传客服数据";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "index";
     }
 }

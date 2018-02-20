@@ -140,7 +140,7 @@ public class SougouPhoneService {
     }
 
     private void insertOrUpdata(ExcelInfo excelInfo) {
-        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngine(excelInfo.getKeyWords(), "搜狗移动");
+        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngineAndState(excelInfo.getKeyWords(), "搜狗移动",1);
         if (keywordsCodeList.size() == 1) {
 
             List<KeywordsRecord> keywordsRecordList =

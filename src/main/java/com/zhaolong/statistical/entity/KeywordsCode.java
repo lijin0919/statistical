@@ -16,4 +16,5 @@ public class KeywordsCode {
     private String keyWords;
     private String code;
     private String searchEngine;
+    private Integer state = 1;
 }

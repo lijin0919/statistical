@@ -141,7 +141,7 @@ public class BaiduPhoneService {
     }
 
     private void insertOrUpdata(ExcelInfo excelInfo){
-        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngine(excelInfo.getKeyWords(),"百度PC");
+        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngineAndState(excelInfo.getKeyWords(),"百度PC",1);
         if(keywordsCodeList.size()==1){
 
             List<KeywordsRecord> keywordsRecordList =

@@ -140,7 +140,7 @@ public class Pc360Service {
     }
 
     private void insertOrUpdata(ExcelInfo excelInfo) {
-        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngine(excelInfo.getKeyWords(), "360PC");
+        List<KeywordsCode> keywordsCodeList = keyWordsRepository.findByKeyWordsAndSearchEngineAndState(excelInfo.getKeyWords(), "360PC",1);
         if (keywordsCodeList.size() == 1) {
 
             List<KeywordsRecord> keywordsRecordList =
