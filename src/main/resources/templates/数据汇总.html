@@ -121,9 +121,9 @@
                         <i class="fa fa-envelope"></i> <span>关键词维护</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-tasks"></i> <span>上传日志</span>
+                <li th:if="${session.user.username=='admin'}">
+                    <a href="userAdmin">
+                        <i class="fa fa-tasks"></i> <span>账户管理</span>
                     </a>
                 </li>
             </ul>

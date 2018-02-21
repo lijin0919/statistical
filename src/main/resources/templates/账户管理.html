@@ -1,4 +1,5 @@
-<html style="min-height: 922px;" xmlns:th="http://www.thymeleaf.org">
+<html style="min-height: 922px;"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>上传推广数据</title>
@@ -6,7 +7,7 @@
     <meta name="description" content="Developed By M Abdur Rokib Promy"/>
     <meta name="keywords" content="Admin, Bootstrap 3, Template, Theme, Responsive"/>
     <!-- bootstrap 3.0.2 -->
-    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <!-- font Awesome -->
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <!-- Ionicons -->
@@ -15,9 +16,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <script src="js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<script src="js/choose-channel.js"></script>
+    <script src="js/user.js"></script>
 </head>
 <body class="skin-black      pace-done" style="min-height: 922px;">
 <div class="pace  pace-inactive">
@@ -57,7 +56,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-user"></i>
-                        <span th:text="${session.user.getUsername()}"> <i class="caret"></i></span>
+                        <span>admin</span>
                     </a>
                     <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
 
@@ -80,7 +79,7 @@
             <div class="user-panel">
 
                 <div class="pull-left info">
-                    <p th:text="${session.user.getUsername()}"></p>
+                    <p>admin</p>
 
 
                 </div>
@@ -116,7 +115,7 @@
                         <i class="fa fa-envelope"></i> <span>关键词维护</span>
                     </a>
                 </li>
-                <li th:if="${session.user.username=='admin'}">
+                <li>
                     <a href="userAdmin">
                         <i class="fa fa-tasks"></i> <span>账户管理</span>
                     </a>
@@ -144,61 +143,76 @@
                 <!-- /.col -->
             </div><!-- /.row -->
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel">
-                        <header class="panel-heading">推广数据上传</header>
-                        <!-- <div class="box-header"> -->
-                        <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
+                <div class="col-lg-6">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            添加用户
+                        </header>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form" th:action="@{userInfoRegister}" method="post">
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">用户名</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="inputEmail1" name="username"/>
 
-                        <!-- </div> -->
-                        <div class="panel-body table-responsive">
-
-
-
-                            <div style="margin-bottom: 10px">
-                                <div class="btn-group">
-                                    <button id="channelBtn" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        请选择渠道
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">百度PC</a></li>
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">百度移动</a></li>
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">360PC</a></li>
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">360移动</a></li>
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">搜狗PC</a></li>
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">搜狗移动</a></li>
-                                        <li><a href="javascript:void(0);" onclick="chooseChannel(this.innerHTML)">神马</a></li>
-                                    </ul>
-                                </div>
-
-
-                            </div>
-
-
-
-
-
-
-
-
-                            <div style="height: 300px">
-                                <form role="form" action="#" th:action="@{batchImport}" enctype="multipart/form-data" method="post">
-
-
-                                    <div class="form-group">
-
-                                        <input type="file" id="exampleInputFile" name="filename"/>
-                                        <p class="help-block">请确保上传文件的准确性</p>
+                                        <span th:text="${result}"></span>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">密码</label>
+                                    <div class="col-lg-10">
+                                        <input type="password" class="form-control" id="inputPassword1"
+                                               name="password"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
 
-                                    <button type="submit" class="btn btn-info">Submit</button>
-                                </form>
-                            </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <button type="submit" class="btn btn-danger">Sign in</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                    <section class="panel tasks-widget">
+                        <header class="panel-heading">
+                            用户列表
+                        </header>
+                        <div class="panel-body table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>用户名</th>
+                                    <th>密码</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user:${userList}">
+                                    <td th:text="${user.username}"></td>
+                                    <td th:text="${user.password}"></td>
+                                    <td>
+                                        <div class="hidden-phone">
+                                            <!--<button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>-->
+                                            <!--<button onclick="" th:value="${user.userId}"-->
+                                                    <!--class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>-->
+                                            <button onclick="deleteUser(this)" th:value="${user.userId}"
+                                                    class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
 
 
-                        </div><!-- /.box-body -->
-                    </div><!-- /.box -->
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </section>
                 </div>
             </div>
         </section><!-- /.content -->
@@ -208,4 +222,6 @@
 
 
 <!-- jQuery 2.0.2 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script></body></html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+</body>
+</html>

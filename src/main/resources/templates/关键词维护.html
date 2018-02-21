@@ -120,9 +120,9 @@
                         <i class="fa fa-envelope"></i> <span>关键词维护</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-tasks"></i> <span>上传日志</span>
+                <li th:if="${session.user.username=='admin'}">
+                    <a href="userAdmin">
+                        <i class="fa fa-tasks"></i> <span>账户管理</span>
                     </a>
                 </li>
             </ul>
@@ -203,7 +203,7 @@
                                         </thead>
                                         <tbody>
                                         <tr th:each="key:${list}">
-                                            <td th:text="${key.getCodeId()}"></td>
+                                            <td th:text="${key.no}"></td>
                                             <td th:text="${key.getKeyWords()}"></td>
                                             <td th:text="${key.getCode()}"></td>
                                             <!-- <td>Steve</td> -->
@@ -214,7 +214,7 @@
                                             <td>
                                                 <div class="hidden-phone">
                                                     <!--<button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>-->
-                                                    <button onclick="" th:value="${key.getCodeId()}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
+                                                    <!--<button onclick="" th:value="${key.getCodeId()}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>-->
                                                     <button onclick="deleteKey(this)" th:value="${key.getCodeId()}" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
                                                 </div>
                                             </td>

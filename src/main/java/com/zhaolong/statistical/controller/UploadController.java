@@ -1,7 +1,9 @@
 package com.zhaolong.statistical.controller;
 
+import com.zhaolong.statistical.entity.UserInfo;
 import com.zhaolong.statistical.service.*;
 import com.zhaolong.statistical.util.ExcelImportUtils;
+import com.zhaolong.statistical.util.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -88,6 +90,8 @@ public class UploadController {
         }
         //批量导入
 
+        UserInfo userInfo = (UserInfo) session.getAttribute("user");
+        LogUtil.printLog(userInfo.getUsername()+"上传了"+fileName);
         return "上传推广数据";
 
     }

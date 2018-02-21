@@ -104,7 +104,7 @@ public class BusinessService {
             Row row = sheet.getRow(r);
 
             baiduPcExcel = new ExcelInfo();
-            Cell cell = row.getCell(12);
+            Cell cell = row.getCell(25);//12
             //循环Excel的列
 
             String value = cell.getStringCellValue();

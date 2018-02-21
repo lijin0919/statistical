@@ -8,4 +8,5 @@ import java.util.List;
 public interface UserInfoRepository extends JpaRepository<UserInfo,Integer>{
 
     List<UserInfo> findByUsernameAndPassword(String userName,String pwd);
+    List<UserInfo> findByUsername(String name);
 }

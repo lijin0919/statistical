@@ -10,4 +10,5 @@ import java.util.List;
 public interface KeyWordsRecordRepository extends JpaRepository<KeywordsRecord,Integer>{
 
     List<KeywordsRecord> findByKeywordsCodeAndSearchEngine(KeywordsCode keywordsCode, String search);
+
 }

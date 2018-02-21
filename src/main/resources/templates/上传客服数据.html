@@ -119,9 +119,9 @@
                         <i class="fa fa-envelope"></i> <span>关键词维护</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-tasks"></i> <span>上传日志</span>
+                <li th:if="${session.user.username=='admin'}">
+                    <a href="userAdmin">
+                        <i class="fa fa-tasks"></i> <span>账户管理</span>
                     </a>
                 </li>
             </ul>
@@ -149,22 +149,16 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel">
-                        <header class="panel-heading">商务通数据上传</header>
+                        <header class="panel-heading">客服数据上传</header>
                         <!-- <div class="box-header"> -->
                         <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
 
                         <!-- </div> -->
                         <div class="panel-body table-responsive">
 
+                            <a href="downCustomer">下载模板</a>
 
-
-
-
-
-
-
-
-                            <form role="form" action="#" th:action="@{uploadBusiness}" enctype="multipart/form-data" method="post">
+                            <form role="form" th:action="@{uploadCustomer}" enctype="multipart/form-data" method="post">
 
 
                                 <div class="form-group">
@@ -187,4 +181,6 @@
 
 
 <!-- jQuery 2.0.2 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script></body></html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+</body>
+</html>

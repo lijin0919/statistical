@@ -14,4 +14,5 @@ public interface KeyWordsRepository extends JpaRepository<KeywordsCode,Integer> 
     List<KeywordsCode> findByCodeAndSearchEngineAndState(String keywords,String search,Integer state);
     Page<KeywordsCode> findAll(Pageable pageable);
     Page<KeywordsCode> findByState(Integer state,Pageable pageable);
+    List<KeywordsCode> findByKeyWordsAndSearchEngine(String keywords,String search);
 }

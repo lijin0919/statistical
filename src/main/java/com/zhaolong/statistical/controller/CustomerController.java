@@ -1,27 +1,30 @@
 package com.zhaolong.statistical.controller;
 
 import com.zhaolong.statistical.entity.UserInfo;
-import com.zhaolong.statistical.service.BusinessService;
+import com.zhaolong.statistical.service.CustomerService;
 import com.zhaolong.statistical.util.ExcelImportUtils;
 import com.zhaolong.statistical.util.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.*;
 
 @Controller
-public class BusinessController {
+public class CustomerController {
 
     @Autowired
     private HttpSession session;
     @Autowired
-    private BusinessService businessService;
+    private CustomerService customerService;
 
-    @PostMapping("/uploadBusiness")
+    @PostMapping("/uploadCustomer")
     public String upload(@RequestParam(value="filename") MultipartFile file){
         //判断文件是否为空
         if(file==null){
@@ -39,10 +42,28 @@ public class BusinessController {
         if(StringUtils.isEmpty(fileName) || size==0){
 
         }
-        //批量导入
-        businessService.batchImport(fileName,file);
+        customerService.readExcel(fileName,file);
         UserInfo userInfo = (UserInfo) session.getAttribute("user");
-        LogUtil.printLog(userInfo.getUsername()+"上传了商务通数据："+fileName);
-        return "上传商务通数据";
+        LogUtil.printLog(userInfo.getUsername()+"上传了客服数据"+fileName);
+        return "上传客服数据";
+    }
+
+    @GetMapping("/downCustomer")
+    public void download(HttpServletResponse response) throws IOException {
+        response.setContentType("multipart/form-data");
+        //设置Content-Disposition
+        response.setHeader("Content-Disposition", "attachment;filename=template.xlsx");
+
+        OutputStream out = response.getOutputStream();
+
+        String path = "E://客服数据.xlsx";
+        InputStream in = new FileInputStream(new File(path));
+
+        int b;
+        while((b=in.read())!=-1){
+            out.write(b);
+        }
+        in.close();
+        out.close();
     }
 }

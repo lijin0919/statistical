@@ -60,6 +60,15 @@ public class IndexController {
         return "上传客服数据";
     }
 
+    @GetMapping("/userAdmin")
+    public String userAdmin(){
+
+        if(session.getAttribute("user")==null){
+            return "redirect:login";
+        }
+        return "redirect:userList";
+    }
+
     @GetMapping("/login")
     public String login(){
         return "index";

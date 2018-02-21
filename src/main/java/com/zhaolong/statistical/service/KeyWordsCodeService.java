@@ -35,9 +35,14 @@ public class KeyWordsCodeService {
 //        Page<KeywordsCode> list = keyWordsRepository.findAll(pageable);
         Page<KeywordsCode> list = keyWordsRepository.findByState(1,pageable);
         List<KeywordsCode> keywordsCodes = new ArrayList<>();
+        int i = 1;
         for (KeywordsCode key:list) {
+            key.setNo(i);
             keywordsCodes.add(key);
+            i++;
         }
+
+
         return keywordsCodes;
     }
 

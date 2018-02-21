@@ -5,6 +5,7 @@ import com.zhaolong.statistical.entity.ExportInfo;
 import com.zhaolong.statistical.entity.KeywordsRecord;
 import com.zhaolong.statistical.repository.DataListRepository;
 import com.zhaolong.statistical.repository.ExportRepository;
+import com.zhaolong.statistical.util.NumberUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.Region;
 import org.apache.poi.ss.usermodel.*;
@@ -77,11 +78,49 @@ public class ExportService {
         cell.setCellValue("信息");
         cell.setCellStyle(style1);
         cell = row.createCell(5);//第6个单元格
-        cell.setCellValue("信息");
+        cell.setCellValue("上门");
+        cell.setCellStyle(style1);
+        cell = row.createCell(6);//第6个单元格
+        cell.setCellValue("注册");
+        cell.setCellStyle(style1);
+        cell = row.createCell(7);//第6个单元格
+        cell.setCellValue("对话率");
+        cell.setCellStyle(style1);
+        cell = row.createCell(8);//第6个单元格
+        cell.setCellValue("信息率");
+        cell.setCellStyle(style1);
+        cell = row.createCell(9);//第6个单元格
+        cell.setCellValue("注册率");
+        cell.setCellStyle(style1);
+        cell = row.createCell(10);//第6个单元格
+        cell.setCellValue("点击成本");
+        cell.setCellStyle(style1);
+        cell = row.createCell(11);//第6个单元格
+        cell.setCellValue("对话成本");
+        cell.setCellStyle(style1);
+        cell = row.createCell(12);//第6个单元格
+        cell.setCellValue("信息成本");
+        cell.setCellStyle(style1);
+        cell = row.createCell(13);//第6个单元格
+        cell.setCellValue("上门成本");
+        cell.setCellStyle(style1);
+        cell = row.createCell(14);//第6个单元格
+        cell.setCellValue("注册成本");
         cell.setCellStyle(style1);
 //6、输入数据
         List<ExportInfo> exportInfos = exportRepository.getAll(start, end);
         System.out.println(exportInfos);
+        int totalDialog = 0;
+        int totalPhone = 0;
+        int totalRegister = 0;
+        double totalMoney = 0;
+        for (int i = 0; i < exportInfos.size(); i++) {
+            totalDialog += exportInfos.get(i).getDialog();
+            totalPhone += exportInfos.get(i).getPhone();
+            totalRegister += exportInfos.get(i).getRegister();
+            totalMoney += exportInfos.get(i).getTotalMoney();
+        }
+
         for (int i = 0; i < exportInfos.size(); i++) {
             row = sheet.createRow(i + 1);
             cell = row.createCell(0);
@@ -98,6 +137,50 @@ public class ExportService {
             cell.setCellValue(exportInfos.get(i).getVisit());
             cell = row.createCell(6);
             cell.setCellValue(exportInfos.get(i).getRegister());
+            cell = row.createCell(7);//对话率
+            cell.setCellValue(NumberUtils.percentage(exportInfos.get(i).getDialog(),exportInfos.get(i).getClick()));
+            cell = row.createCell(8);//信息率
+            cell.setCellValue(NumberUtils.percentage(exportInfos.get(i).getPhone(),exportInfos.get(i).getDialog()));
+            cell = row.createCell(9);//注册率
+            cell.setCellValue(NumberUtils.percentage(exportInfos.get(i).getRegister(),exportInfos.get(i).getVisit()));
+            cell = row.createCell(10);
+            if(exportInfos.get(i).getClick()==null || exportInfos.get(i).getClick()==0){
+                cell.setCellValue(0);
+            }else{
+                cell.setCellValue(NumberUtils.double2(exportInfos.get(i).getTotalMoney()/exportInfos.get(i).getClick()));
+            }
+            //对话成本
+            cell = row.createCell(11);
+            if(exportInfos.get(i).getDialog()==null || exportInfos.get(i).getDialog()==0){
+                cell.setCellValue(0);
+            }else{
+                cell.setCellValue(NumberUtils.double2(exportInfos.get(i).getTotalMoney()/exportInfos.get(i).getDialog()));
+            }
+
+            //信息
+            cell = row.createCell(12);
+            if(exportInfos.get(i).getPhone()==null || exportInfos.get(i).getPhone()==0){
+                cell.setCellValue(0);
+            }else{
+                cell.setCellValue(NumberUtils.double2(exportInfos.get(i).getTotalMoney()/exportInfos.get(i).getPhone()));
+            }
+
+            //上门
+            cell = row.createCell(13);
+            if(exportInfos.get(i).getVisit()==null || exportInfos.get(i).getVisit()==0){
+                cell.setCellValue(0);
+            }else{
+                cell.setCellValue(NumberUtils.double2(exportInfos.get(i).getTotalMoney()/exportInfos.get(i).getVisit()));
+            }
+
+            //注册
+            cell = row.createCell(14);
+            if(exportInfos.get(i).getRegister()==null || exportInfos.get(i).getRegister()==0){
+                cell.setCellValue(0);
+            }else{
+                cell.setCellValue(NumberUtils.double2(exportInfos.get(i).getTotalMoney()/exportInfos.get(i).getRegister()));
+            }
+
 
         }
 //7、如果需要单元格合并，有两种方式

@@ -18,7 +18,7 @@ public class ExportRepository {
 
     public List<ExportInfo> getAll(Date start,Date end){
         return jdbcTemplate.query("SELECT\n" +
-                "  keywords_code.code AS keyword,\n" +
+                "  keywords_code.key_words AS keyword,\n" +
                 "  sum(click_count) AS click,\n" +
                 "  sum(dialogue_count) AS dialog,\n" +
                 "  sum(phone_count) AS phone,\n" +
