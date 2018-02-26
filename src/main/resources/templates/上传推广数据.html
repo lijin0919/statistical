@@ -40,8 +40,8 @@
 </div>
 <!-- header logo: style can be found in header.less -->
 <header class="header">
-    <a href="index.html" class="logo">
-        <!-- Add the class icon to your logo image or logo icon to add the margining -->兆隆教育</a>
+    <img class="logo" src="images/logo.png"/>
+    <!--<a href="index.html" class="logo">兆隆教育</a>-->
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -146,7 +146,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel">
-                        <header class="panel-heading">推广数据上传</header>
+                        <header class="panel-heading"><strong>推广数据上传</strong></header>
                         <!-- <div class="box-header"> -->
                         <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
 
@@ -190,9 +190,10 @@
 
                                         <input type="file" id="exampleInputFile" name="filename"/>
                                         <p class="help-block">请确保上传文件的准确性</p>
+                                        <p style="color: red" th:text="${success}"></p>
                                     </div>
 
-                                    <button type="submit" class="btn btn-info">Submit</button>
+                                    <button type="submit" class="btn btn-info">提交</button>
                                 </form>
                             </div>
 

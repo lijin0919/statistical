@@ -2920,7 +2920,7 @@ vertical-align: top;
 }
 /* skin-black logo */
 .skin-black .logo {
-  background-color: #283744;
+  /*background-color: #283744;*/
   color: #f9f9f9;
 }
 .skin-black .logo > a {

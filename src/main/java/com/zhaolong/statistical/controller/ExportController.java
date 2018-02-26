@@ -97,7 +97,7 @@ public class ExportController {
         }
         in.close();
         out.close();
-        EmailUtil.sendFileEmail("317395616@qq.com","关键词数据","",new File(path));
+        EmailUtil.sendFileEmail("yangzhaofeng@xaccp.com","关键词数据","",new File(path));
         //*******************************************
 
 

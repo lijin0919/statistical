@@ -6,6 +6,7 @@ import com.zhaolong.statistical.util.ExcelImportUtils;
 import com.zhaolong.statistical.util.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,8 @@ public class BusinessController {
     private BusinessService businessService;
 
     @PostMapping("/uploadBusiness")
-    public String upload(@RequestParam(value="filename") MultipartFile file){
+    public String upload(@RequestParam(value="filename") MultipartFile file,
+                         Model model){
         //判断文件是否为空
         if(file==null){
 
@@ -43,6 +45,7 @@ public class BusinessController {
         businessService.batchImport(fileName,file);
         UserInfo userInfo = (UserInfo) session.getAttribute("user");
         LogUtil.printLog(userInfo.getUsername()+"上传了商务通数据："+fileName);
+        model.addAttribute("success","上传成功");
         return "上传商务通数据";
     }
 }

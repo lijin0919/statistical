@@ -149,7 +149,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel">
-                        <header class="panel-heading">商务通数据上传</header>
+                        <header class="panel-heading"><strong>商务通数据上传</strong></header>
                         <!-- <div class="box-header"> -->
                         <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
 
@@ -171,9 +171,10 @@
 
                                     <input type="file" id="exampleInputFile" name="filename"/>
                                     <p class="help-block">请确保上传文件的准确性</p>
+                                    <p style="color: red" th:text="${success}"></p>
                                 </div>
 
-                                <button type="submit" class="btn btn-info">Submit</button>
+                                <button type="submit" class="btn btn-info">提交</button>
                             </form>
 
                         </div><!-- /.box-body -->

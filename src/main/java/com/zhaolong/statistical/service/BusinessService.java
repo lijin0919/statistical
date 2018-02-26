@@ -143,7 +143,7 @@ public class BusinessService {
 
                     if(strings[1].equalsIgnoreCase("pc")&&!channel.equals("神马")){
                         channel+="PC";
-                    }else {
+                    }else if(!channel.equals("神马")){
                         channel+="移动";
                     }
 

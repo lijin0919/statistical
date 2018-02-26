@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,9 @@ public class DateListService {
         Page<KeywordsRecord> recordPage = dataListRepository.findByRecordDateBetween(start,end,pageable);
 
         for (KeywordsRecord k:recordPage) {
+            BigDecimal bg = new BigDecimal(k.getSpendMoney());
+            double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            k.setSpendMoney(f1);
             list.add(k);
         }
 

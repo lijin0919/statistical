@@ -6,6 +6,7 @@ import com.zhaolong.statistical.util.ExcelImportUtils;
 import com.zhaolong.statistical.util.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,8 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping("/uploadCustomer")
-    public String upload(@RequestParam(value="filename") MultipartFile file){
+    public String upload(@RequestParam(value="filename") MultipartFile file,
+                         Model model){
         //判断文件是否为空
         if(file==null){
 
@@ -45,6 +47,7 @@ public class CustomerController {
         customerService.readExcel(fileName,file);
         UserInfo userInfo = (UserInfo) session.getAttribute("user");
         LogUtil.printLog(userInfo.getUsername()+"上传了客服数据"+fileName);
+        model.addAttribute("success","上传成功");
         return "上传客服数据";
     }
 

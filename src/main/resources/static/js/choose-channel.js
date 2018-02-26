@@ -1,5 +1,5 @@
 function chooseChannel(data) {
-    alert(data)
+    // alert(data)
     $("#channelBtn").html(data+"<span class=\"caret\"></span>");
     //上传关键词选择渠道
     $.ajax({
@@ -8,7 +8,7 @@ function chooseChannel(data) {
         data:{channel:data},
         success:function (obj) {
 
-            alert(obj)
+            // alert(obj)
         }
     });
 }
